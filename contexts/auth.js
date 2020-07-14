@@ -33,9 +33,10 @@ export const AuthProvider = ({ children }) => {
     });
 
     if (token) {
-      console.log("Got token");
-      Cookies.set("token", token, { expires: 60 });
-      API.defaults.headers.Authorization = `Bearer ${token}`;
+      console.log("Got token", token);
+
+      Cookies.set("token", token.token, { expires: 60 });
+      API.defaults.headers.Authorization = `Bearer ${token.token}`;
       const { data: user } = await API.get("/account/me");
       setUser(user);
       console.log("Got user", user);

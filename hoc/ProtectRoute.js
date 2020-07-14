@@ -7,9 +7,9 @@ export function ProtectRoute(Component) {
     const { user, isAuthenticated, loading } = useAuth();
     const router = useRouter();
 
-    useEffect(() => {
-      if (!isAuthenticated && !loading) router.push("/login");
-    }, [isAuthenticated, loading]);
+    if (loading) return <h1>loading...</h1>;
+
+    if (!isAuthenticated && !loading) return <h1>Get out of here</h1>;
 
     return <Component {...arguments} />;
   };

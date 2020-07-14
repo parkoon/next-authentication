@@ -1,4 +1,3 @@
-import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import useAuth from "../contexts/auth";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,18 +33,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialValues = {
-  accountName: "",
-  password: "",
+  accountName: "parkoon@gmail.com",
+  password: "1234",
 };
 
 export default function Login() {
   const classes = useStyles();
 
   const { login } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (values) => {
     try {
       await login(values.accountName, values.password);
+      router.push("/profile");
     } catch (err) {
       console.log(err);
     }
