@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import API from "../helpers/api";
-import { apiResolver } from "next/dist/next-server/server/api-utils";
 
 const AuthContext = createContext({});
 
