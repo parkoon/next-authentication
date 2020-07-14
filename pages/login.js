@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
+import { Formik, Form, Field } from "formik";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -30,48 +31,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const initialValues = {
+  email: "",
+  password: "",
+};
+const handleSubmit = (values) => {
+  alert(JSON.stringify(values, null, 4));
+};
+
 export default function Login() {
   const classes = useStyles();
 
   return (
     <Container className={classes.container} component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
+        <Formik onSubmit={handleSubmit} initialValues={initialValues}>
+          {() => {
+            return (
+              <Form>
+                <Field
+                  name="email"
+                  as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  label="Email Address"
+                  autoFocus
+                />
+                <Field
+                  as={TextField}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                />
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-        </form>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Sign In
+                </Button>
+              </Form>
+            );
+          }}
+        </Formik>
       </div>
-      <Box mt={8}></Box>
     </Container>
   );
 }
