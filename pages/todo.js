@@ -1,3 +1,4 @@
+import { ProtectRoute } from "../hoc/ProtectRoute";
 function Todo() {
   return (
     <>
@@ -7,4 +8,4 @@ function Todo() {
   );
 }
 
-export default Todo;
+export default ProtectRoute(Todo);
