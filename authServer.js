@@ -10,7 +10,7 @@ const MASTER = {
 const JWT_SECRET = "supersecret#!@$";
 
 function generateToken(payload) {
-  return jwt.sign(payload, jwt);
+  return jwt.sign(payload, JWT_SECRET);
 }
 
 app.post("/account/login", (req, res) => {
