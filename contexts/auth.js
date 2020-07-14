@@ -27,12 +27,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (accountName, password) => {
-    const { data } = await API.post("/account/login", {
+    const { data: token } = await API.post("/account/login", {
       accountName,
       password,
     });
 
-    if (data.token) {
+    if (token) {
       console.log("Got token");
       Cookies.set("token", token, { expires: 60 });
       API.defaults.headers.Authorization = `Bearer ${token}`;

@@ -1,12 +1,15 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 const app = express();
 
 const MASTER = {
-  email: "parkoon@gmail.com",
-  password: 1234,
+  accountName: "parkoon@gmail.com",
+  password: "1234",
 };
 
+app.use(cors());
+app.use(express.json());
 const JWT_SECRET = "supersecret#!@$";
 
 function generateToken(payload) {
@@ -14,11 +17,10 @@ function generateToken(payload) {
 }
 
 app.post("/account/login", (req, res) => {
-  const { email, password } = req.body;
-
-  if (email === MASTER.email && password === MASTER.password) {
-    res.json({
-      token: generateToken({ email }),
+  const { accountName, password } = req.body;
+  if (accountName === MASTER.accountName && password === MASTER.password) {
+    return res.json({
+      token: generateToken({ accountName }),
     });
   }
 

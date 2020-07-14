@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
 import { Formik, Form, Field } from "formik";
+import useAuth from "../contexts/auth";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -32,15 +33,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialValues = {
-  email: "",
+  accountName: "",
   password: "",
-};
-const handleSubmit = (values) => {
-  alert(JSON.stringify(values, null, 4));
 };
 
 export default function Login() {
   const classes = useStyles();
+
+  const { login } = useAuth();
+
+  const handleSubmit = async (values) => {
+    try {
+      await login(values.accountName, values.password);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container className={classes.container} component="main" maxWidth="xs">
@@ -50,7 +58,7 @@ export default function Login() {
             return (
               <Form>
                 <Field
-                  name="email"
+                  name="accountName"
                   as={TextField}
                   variant="outlined"
                   margin="normal"
